@@ -1,0 +1,95 @@
+# ===========================================================================
+# The full observability + serving stack, wired together.
+#
+#   mlflow    - tracking server + model registry (backed by SQLite + a volume)
+#   trainer   - one-shot job: trains and registers the initial model
+#   serving   - the FastAPI /predict + /metrics app
+#   prometheus- scrapes serving:/metrics
+#   grafana   - dashboards over Prometheus
+#
+# Bring it all up with:   docker compose up --build
+# Then open:
+#   http://localhost:8000/docs   (API)
+#   http://localhost:5000        (MLflow UI)
+#   http://localhost:9090        (Prometheus)
+#   http://localhost:3000        (Grafana — admin/admin)
+# ===========================================================================
+
+services:
+  # --- MLflow tracking server + model registry -----------------------------
+  mlflow:
+    image: python:3.11-slim
+    command: >
+      bash -c "pip install --no-cache-dir mlflow>=2.9 &&
+               mlflow server
+               --host 0.0.0.0 --port 5000
+               --backend-store-uri sqlite:////mlflow/mlflow.db
+               --artifacts-destination /mlflow/artifacts
+               --serve-artifacts"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-data:/mlflow          # persist registry + artifacts across restarts
+    healthcheck:
+      # Serving/trainer wait until MLflow actually answers before starting.
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # --- One-shot trainer: bootstraps the initial production model ------------
+  trainer:
+    build: .
+    command: python -m scripts.run_pipeline --rows 8000
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    depends_on:
+      mlflow:
+        condition: service_healthy
+    restart: "no"                     # runs once, then exits
+
+  # --- Serving API ----------------------------------------------------------
+  serving:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    volumes:
+      - prediction-logs:/app/logs     # share prediction log with the healer
+    depends_on:
+      mlflow:
+        condition: service_healthy
+      trainer:
+        condition: service_completed_successfully   # only serve after a model exists
+
+  # --- Prometheus: scrapes the serving metrics ------------------------------
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - serving
+
+  # --- Grafana: dashboards over Prometheus ----------------------------------
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      # Provisioning = datasource + dashboards configured as code, so Grafana
+      # comes up with the dashboard already loaded (no manual clicking).
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+
+volumes:
+  mlflow-data:
+  prediction-logs:

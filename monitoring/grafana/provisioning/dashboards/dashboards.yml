@@ -1,0 +1,15 @@
+# Grafana dashboard provider: load any dashboard JSON found in the mounted
+# dashboards folder at startup. This is "dashboards as code" — the dashboard
+# lives in git (monitoring/grafana/dashboards/*.json), not clicked together by
+# hand and lost when the container dies.
+apiVersion: 1
+
+providers:
+  - name: "mlops-dashboards"
+    orgId: 1
+    folder: "MLOps"
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

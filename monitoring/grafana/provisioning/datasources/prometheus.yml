@@ -1,0 +1,13 @@
+# Grafana datasource provisioning: register Prometheus automatically at startup
+# so you don't have to add it by hand in the UI. `prometheus:9090` is the
+# compose service name.
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus            # fixed uid so the dashboard JSON can reference it
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true

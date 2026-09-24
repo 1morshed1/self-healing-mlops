@@ -92,8 +92,17 @@ class Settings:
     logs_dir: Path = field(default_factory=lambda: PROJECT_ROOT / "logs")
 
     # --- MLflow (experiment tracking + model registry) ----------------------
+    # NOTE: the MLflow *Model Registry* requires a database-backed tracking
+    # store (it does not work with the plain `file:` store). We therefore
+    # default to a local SQLite file, which needs no server yet gives us the
+    # full registry (versions + aliases). Point this at a real server
+    # (http://localhost:5000) or Postgres for a team/production setup.
     mlflow_tracking_uri: str = field(
-        default_factory=lambda: _get_str("MLFLOW_TRACKING_URI", f"file:{PROJECT_ROOT / 'mlruns'}")
+        default_factory=lambda: _get_str("MLFLOW_TRACKING_URI", f"sqlite:///{PROJECT_ROOT / 'mlflow.db'}")
+    )
+    # Where MLflow stores model/artifact files (used when creating the experiment).
+    mlflow_artifact_root: str = field(
+        default_factory=lambda: _get_str("MLFLOW_ARTIFACT_ROOT", f"{PROJECT_ROOT / 'mlartifacts'}")
     )
     experiment_name: str = "self_healing_mlops"
     model_name: str = field(default_factory=lambda: _get_str("MLOPS_MODEL_NAME", "self_healing_classifier"))

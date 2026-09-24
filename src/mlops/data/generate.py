@@ -137,13 +137,16 @@ def generate_dataset(
     # The coefficients encode the "true" relationship the model must learn.
     # We standardize each term roughly so no single feature dominates by scale.
     amount_ratio = amount / (avg_txn_amt + 1.0)  # spending far above your norm
+    # Coefficients tuned so a good classifier reaches ~0.85 ROC-AUC and ~0.90
+    # accuracy on clean data — a believable "healthy" baseline that leaves clear
+    # headroom to degrade when drift hits. The intercept keeps fraud rare (~3%).
     score = (
-        -3.2                                   # intercept: fraud is rare
-        + 1.1 * (amount_ratio - 1.0)           # spending well above baseline
-        + 0.9 * (n_txn_24h / 5.0)              # rapid-fire transactions
-        + 2.0 * country_risk                   # risky geography
-        + 1.3 * device_change                  # unfamiliar device
-        - 0.6 * (age_days / 400.0)             # older accounts safer
+        -4.5                                   # intercept: fraud is rare
+        + 3.0 * (amount_ratio - 1.0)           # spending well above baseline
+        + 2.0 * (n_txn_24h / 5.0)              # rapid-fire transactions
+        + 5.5 * country_risk                   # risky geography
+        + 3.2 * device_change                  # unfamiliar device
+        - 1.2 * (age_days / 400.0)             # older accounts safer
     )
     fraud_prob = _sigmoid(score)
     is_fraud = rng.binomial(1, fraud_prob)

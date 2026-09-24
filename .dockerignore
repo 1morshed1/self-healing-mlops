@@ -1,0 +1,17 @@
+# Keep the build context small and reproducible: never ship local runtime state
+# or the venv into the image.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.git/
+.pytest_cache/
+mlruns/
+mlartifacts/
+mlflow.db
+artifacts/
+data/generated/
+logs/
+.env
+docs/
+tests/

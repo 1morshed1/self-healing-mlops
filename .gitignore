@@ -1,0 +1,54 @@
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+
+# ---------------------------------------------------------------------------
+# Testing / coverage
+# ---------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------------------
+# MLOps runtime artifacts (these are generated, never commit them)
+# ---------------------------------------------------------------------------
+# MLflow tracking store + registry (local file backend)
+mlruns/
+mlartifacts/
+mlflow.db
+
+# Trained models / datasets / reference snapshots produced by the pipeline
+artifacts/
+data/generated/
+*.joblib
+*.pkl
+
+# Prediction logs written by the serving layer
+logs/
+*.log
+
+# ---------------------------------------------------------------------------
+# Secrets & local environment
+# ---------------------------------------------------------------------------
+.env
+.env.local
+
+# ---------------------------------------------------------------------------
+# Editor / OS noise
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/
+.DS_Store

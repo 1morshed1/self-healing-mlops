@@ -1,0 +1,23 @@
+# ===========================================================================
+# Prometheus configuration.
+#
+# Prometheus is a PULL-based system: it periodically scrapes each target's
+# /metrics endpoint and stores the samples as time series. We only need to tell
+# it where to scrape and how often.
+# ===========================================================================
+global:
+  scrape_interval: 5s          # how often to pull metrics (fast, for a demo)
+  evaluation_interval: 15s     # how often to evaluate alerting rules (none here)
+
+scrape_configs:
+  # Scrape the FastAPI serving app. `serving` is the service name in
+  # docker-compose, which Docker's internal DNS resolves to the container.
+  - job_name: "mlops-serving"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["serving:8000"]
+
+  # Prometheus scraping itself — handy for confirming Prometheus is healthy.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]

@@ -1,0 +1,16 @@
+# ===========================================================================
+# Development-only dependencies (testing, linting).
+# Install with:  pip install -r requirements.txt -r requirements-dev.txt
+# ===========================================================================
+-r requirements.txt
+
+pytest>=8.0            # test runner
+pytest-cov>=4.1        # coverage reporting
+httpx>=0.27           # FastAPI TestClient transport for API tests
+ruff>=0.3             # fast linter + formatter (optional but recommended)
+
+# Airflow is heavy and only needed if you actually run the orchestration
+# layer locally. It is intentionally NOT in the core requirements so the
+# training/serving/monitoring code stays lightweight to install and test.
+# Uncomment to work on the DAG:
+# apache-airflow>=2.8

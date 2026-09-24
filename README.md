@@ -1,5 +1,7 @@
 # Self-Healing MLOps Pipeline
 
+[![CI](https://github.com/1morshed1/self-healing-mlops/actions/workflows/ci.yml/badge.svg)](https://github.com/1morshed1/self-healing-mlops/actions/workflows/ci.yml)
+
 An end-to-end machine-learning system that **trains** a model, **serves** it
 behind a FastAPI endpoint, **monitors** it in production for data drift and
 accuracy degradation, and **heals itself** — an LLM diagnostic agent reads the

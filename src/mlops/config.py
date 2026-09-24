@@ -126,7 +126,7 @@ class Settings:
 
     # --- LLM diagnostic agent ----------------------------------------------
     anthropic_api_key: str = field(default_factory=lambda: _get_str("ANTHROPIC_API_KEY", ""))
-    llm_model: str = field(default_factory=lambda: _get_str("MLOPS_LLM_MODEL", "claude-sonnet-4-5"))
+    llm_model: str = field(default_factory=lambda: _get_str("MLOPS_LLM_MODEL", "claude-opus-5"))
 
     # --- Notifications -----------------------------------------------------
     alert_webhook_url: str = field(default_factory=lambda: _get_str("MLOPS_ALERT_WEBHOOK_URL", ""))

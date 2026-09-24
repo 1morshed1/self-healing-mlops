@@ -25,8 +25,8 @@ import pandas as pd
 from mlops.config import Settings, get_settings
 from mlops.data.generate import DriftSpec, generate_dataset
 from mlops.data.schema import FEATURE_NAMES, TARGET_NAME
-from mlops.diagnostics.agent import AlertContext, DiagnosticAgent, Diagnosis
-from mlops.diagnostics.remediation import Remediator, RemediationResult
+from mlops.diagnostics.agent import AlertContext, Diagnosis, DiagnosticAgent
+from mlops.diagnostics.remediation import RemediationResult, Remediator
 from mlops.monitoring.drift import DriftDetector
 from mlops.monitoring.performance import PerformanceMonitor, _confidence
 from mlops.orchestration import notify
@@ -121,7 +121,9 @@ class SelfHealingMonitor:
         frame = pd.DataFrame(rows[-limit:])
         return frame
 
-    def window_from_simulation(self, drift: DriftSpec, n: int = 1500, seed: int = 0) -> pd.DataFrame:
+    def window_from_simulation(
+        self, drift: DriftSpec, n: int = 1500, seed: int = 0
+    ) -> pd.DataFrame:
         """Generate a labelled production window with injected drift (demo path)."""
         return generate_dataset(n, seed=seed, drift=drift)
 

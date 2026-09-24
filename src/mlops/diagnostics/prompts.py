@@ -99,7 +99,7 @@ def _format_performance(perf: dict | None) -> str:
     return "\n".join(lines)
 
 
-def build_user_prompt(context: "AlertContext") -> str:  # noqa: F821 (type in agent.py)
+def build_user_prompt(context: AlertContext) -> str:  # noqa: F821 (type in agent.py)
     """Assemble the full context block the agent reasons over."""
     return f"""A monitoring alert has fired for a production model.
 

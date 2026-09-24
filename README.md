@@ -111,8 +111,17 @@ explains not just what the code does but *why each decision was made*:
 
 - `00-overview.md` — the mental model and how the pieces fit
 - `01-config-and-scaffolding.md` — 12-factor config, `src/` layout, editable installs
-- `02-data-and-drift-simulation.md` — how we fake realistic drift to test the system
-- ...one note per phase (see the folder for the full, growing list).
+- `02-data-and-drift-simulation.md` — faking realistic drift; covariate vs concept drift
+- `03-training-and-mlflow.md` — the quality gate, MLflow registry, aliases
+- `04-drift-detection.md` — **PSI vs KS test**, the statistics (read this before interviews)
+- `05-llm-diagnostic-agent.md` — the unique angle: decide/act split, prompt-as-policy, fallback
+- `06-serving-and-metrics.md` — FastAPI serving patterns + Prometheus metric types
+- `07-orchestration-and-self-healing.md` — the closed loop + Airflow DAGs
+- `08-observability-stack.md` — Docker Compose, Prometheus, Grafana-as-code
+- `09-testing-and-quality.md` — test isolation, testing an LLM offline
+
+Also see **[docs/architecture.md](docs/architecture.md)** (design map) and
+**[docs/runbook.md](docs/runbook.md)** (how to operate it).
 
 ---
 

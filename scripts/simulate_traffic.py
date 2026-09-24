@@ -47,7 +47,9 @@ def main() -> None:
             resp = requests.post(f"{base}/predict", json={"features": features}, timeout=10)
             resp.raise_for_status()
         except requests.RequestException as exc:
-            raise SystemExit(f"Request failed — is the server running at {base}? ({exc})")
+            raise SystemExit(
+                f"Request failed — is the server running at {base}? ({exc})"
+            ) from exc
         sent += 1
         fraud += resp.json()["is_fraud"]
 

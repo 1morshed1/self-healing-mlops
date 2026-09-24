@@ -26,7 +26,6 @@ change on deploy. Rollback is just moving the pointer back to version 6.
 from __future__ import annotations
 
 import tempfile
-from pathlib import Path
 
 import mlflow
 import pandas as pd

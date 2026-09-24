@@ -98,19 +98,27 @@ class Settings:
     # full registry (versions + aliases). Point this at a real server
     # (http://localhost:5000) or Postgres for a team/production setup.
     mlflow_tracking_uri: str = field(
-        default_factory=lambda: _get_str("MLFLOW_TRACKING_URI", f"sqlite:///{PROJECT_ROOT / 'mlflow.db'}")
+        default_factory=lambda: _get_str(
+            "MLFLOW_TRACKING_URI", f"sqlite:///{PROJECT_ROOT / 'mlflow.db'}"
+        )
     )
     # Where MLflow stores model/artifact files (used when creating the experiment).
     mlflow_artifact_root: str = field(
-        default_factory=lambda: _get_str("MLFLOW_ARTIFACT_ROOT", f"{PROJECT_ROOT / 'mlartifacts'}")
+        default_factory=lambda: _get_str(
+            "MLFLOW_ARTIFACT_ROOT", f"{PROJECT_ROOT / 'mlartifacts'}"
+        )
     )
     experiment_name: str = "self_healing_mlops"
-    model_name: str = field(default_factory=lambda: _get_str("MLOPS_MODEL_NAME", "self_healing_classifier"))
+    model_name: str = field(
+        default_factory=lambda: _get_str("MLOPS_MODEL_NAME", "self_healing_classifier")
+    )
 
     # --- Training quality gate ---------------------------------------------
     # The evaluate step refuses to promote a model whose test accuracy is
     # below this. This is the "don't ship a worse model" safety rail.
-    accuracy_gate: float = field(default_factory=lambda: _get_float("MLOPS_ACCURACY_GATE", 0.80))
+    accuracy_gate: float = field(
+        default_factory=lambda: _get_float("MLOPS_ACCURACY_GATE", 0.80)
+    )
     random_seed: int = 42  # fixed so training is reproducible
 
     # --- Serving -----------------------------------------------------------
@@ -118,11 +126,17 @@ class Settings:
     serve_port: int = field(default_factory=lambda: _get_int("MLOPS_SERVE_PORT", 8000))
     # File the serving layer appends every prediction to (JSON lines). The
     # monitoring layer reads this to build the "production" window for drift.
-    prediction_log: Path = field(default_factory=lambda: PROJECT_ROOT / "logs" / "predictions.jsonl")
+    prediction_log: Path = field(
+        default_factory=lambda: PROJECT_ROOT / "logs" / "predictions.jsonl"
+    )
 
     # --- Drift detection thresholds ----------------------------------------
-    psi_threshold: float = field(default_factory=lambda: _get_float("MLOPS_PSI_THRESHOLD", 0.2))
-    ks_pvalue_threshold: float = field(default_factory=lambda: _get_float("MLOPS_KS_PVALUE_THRESHOLD", 0.01))
+    psi_threshold: float = field(
+        default_factory=lambda: _get_float("MLOPS_PSI_THRESHOLD", 0.2)
+    )
+    ks_pvalue_threshold: float = field(
+        default_factory=lambda: _get_float("MLOPS_KS_PVALUE_THRESHOLD", 0.01)
+    )
 
     # --- LLM diagnostic agent ----------------------------------------------
     anthropic_api_key: str = field(default_factory=lambda: _get_str("ANTHROPIC_API_KEY", ""))

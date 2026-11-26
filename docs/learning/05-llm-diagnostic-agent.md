@@ -5,7 +5,7 @@ detected, instead of firing a raw "feature X PSI = 0.34" alert, we feed the full
 monitoring context to an LLM agent that produces a **human-readable root cause**
 and a **recommended action**, then a separate component safely executes it.
 
-## Three design decisions worth defending in an interview
+## Three design decisions and why
 
 ### 1. Decide vs. act are separated
 

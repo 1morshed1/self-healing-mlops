@@ -1,8 +1,7 @@
 # 00 — Overview: the mental model
 
-> These learning notes are written for *you* — the person building this — so
-> that six months from now, in an interview, you can explain not just *what*
-> the code does but *why* each decision was made. Read them in order.
+> These design notes explain not just *what* the code does but *why* each
+> decision was made. Read them in order.
 
 ## The problem we're solving
 
@@ -72,6 +71,6 @@ the whole thing runs on your laptop with no infrastructure.
 ## How to read the rest of these notes
 
 Each phase has its own note (`01-…`, `02-…`). They build on each other. If you
-only read one thing before an interview, read this file plus
+only read one thing, read this file plus
 `04-drift-detection.md` (the statistics) and `05-llm-diagnostic-agent.md` (the
 unique angle).

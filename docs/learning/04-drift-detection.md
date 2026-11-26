@@ -1,6 +1,6 @@
 # 04 — Drift detection (the statistics that matter)
 
-This is the note to reread before an interview. Being able to explain PSI and
+This is the most important note. Being able to explain PSI and
 the KS test — *and why you use both* — is what separates "I detect drift with a
 library" from "I understand drift."
 

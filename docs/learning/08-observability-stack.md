@@ -72,7 +72,7 @@ degradation signal from note 06), and error rate by reason (time series).
 
 ## What's a demo shortcut vs. production
 
-Called out honestly, because interviewers ask:
+Called out honestly:
 
 - **Single-stage Dockerfile, root user.** Fine for a demo; production wants a
   multi-stage build (build wheels, copy into a slim runtime) and a non-root

@@ -2,7 +2,7 @@
 # Serving image for the fraud model API.
 #
 # A small, single-stage image is fine here — the dependency tree is modest and
-# clarity beats shaving a few MB for a learning project. In a real deployment
+# clarity beats shaving a few MB here. In a real deployment
 # you'd use a multi-stage build (build wheels in one stage, copy into a slim
 # runtime) and a non-root user; this is called out in docs/learning/08.
 # ===========================================================================

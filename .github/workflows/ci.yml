@@ -1,8 +1,8 @@
 # ===========================================================================
 # Continuous Integration: lint + test on every push and pull request.
 #
-# This is part of the "I operate software, not just write it" story — the same
-# quality gate a reviewer would expect runs automatically. It works because the
+# The same quality gate a reviewer would expect runs automatically. It works
+# because the
 # whole test suite is designed to run offline with no secrets (the diagnostic
 # agent falls back to its rule-based path when ANTHROPIC_API_KEY is absent).
 # ===========================================================================

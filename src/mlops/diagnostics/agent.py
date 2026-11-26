@@ -110,7 +110,9 @@ class DiagnosticAgent:
         client = self._get_client()
         message = client.messages.create(
             model=self.settings.llm_model,
-            max_tokens=1024,
+            # Generous budget: current Claude models think before answering and
+            # that thinking shares max_tokens, so a small cap can leave no text.
+            max_tokens=16000,
             system=prompts.SYSTEM_PROMPT,
             messages=[{"role": "user", "content": prompts.build_user_prompt(context)}],
         )

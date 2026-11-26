@@ -45,7 +45,7 @@ shape* is identical, so the monitoring code wouldn't change.
 | `prediction_fraud_probability` | Histogram | a *shift* in this distribution is a degradation signal visible before labels |
 | `current_model_version` | Gauge | goes up on promote, down on rollback; puts "when did the model change?" on the same timeline as its metrics |
 
-Counter vs Gauge vs Histogram is a common interview probe. The one-line rule:
+Counter vs Gauge vs Histogram is easy to get wrong. The one-line rule:
 **Counter** = cumulative event count (rate it), **Gauge** = current value (up or
 down), **Histogram** = distribution of observations (quantiles). Prometheus
 *scrapes* the `/metrics` endpoint on a schedule — the app never pushes.

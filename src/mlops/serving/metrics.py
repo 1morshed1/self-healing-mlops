@@ -6,7 +6,7 @@ WHY PROMETHEUS
 the ML monitoring we built earlier. Prometheus is the de-facto standard: your
 app exposes a plain-text ``/metrics`` endpoint, Prometheus *scrapes* it every
 few seconds, stores the time series, and Grafana graphs it. This is the
-observability half of the CV story (the drift detector is the ML half).
+observability half of the system (the drift detector is the ML half).
 
 THE FOUR METRIC TYPES (worth knowing cold)
 ------------------------------------------
@@ -19,8 +19,8 @@ THE FOUR METRIC TYPES (worth knowing cold)
 * **Summary** — like a histogram but computes quantiles client-side (we don't
   use it here; histograms are more flexible for aggregation).
 
-Choosing the right type per signal is exactly the kind of detail interviewers
-probe, so each metric below documents *why* it's the type it is.
+Choosing the right type per signal matters,
+so each metric below documents *why* it's the type it is.
 """
 
 from __future__ import annotations

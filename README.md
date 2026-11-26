@@ -8,7 +8,7 @@ accuracy degradation, and **heals itself** — an LLM diagnostic agent reads the
 alert context, decides what to do (retrain / rollback / investigate), and
 triggers the fix.
 
-> This is a *portfolio / learning* project. It runs fully on a laptop with no
+> It runs fully on a laptop with no
 > cloud account, yet it mirrors how real production ML is operated. Every
 > module is heavily commented, and `docs/learning/` contains a numbered set of
 > notes explaining the concepts and the design decisions behind each phase.
@@ -51,10 +51,10 @@ generate a drifted production window → detect drift → ask the agent → act.
 
 ---
 
-## Why this project exists (the CV angle)
+## What it demonstrates
 
-Most ML portfolios stop at "I trained a model in a notebook." This project
-proves the *engineering* concerns that senior ML roles actually pay for:
+Most ML projects stop at "I trained a model in a notebook." This one covers
+the *engineering* concerns of running a model in production:
 
 | Skill demonstrated | Where to look |
 |---|---|
@@ -106,7 +106,7 @@ See **[docs/runbook.md](docs/runbook.md)** for operating instructions and
 
 ---
 
-## Learning notes
+## Design notes
 
 The `docs/learning/` folder is written *for the person building this* — it
 explains not just what the code does but *why each decision was made*:
@@ -115,7 +115,7 @@ explains not just what the code does but *why each decision was made*:
 - `01-config-and-scaffolding.md` — 12-factor config, `src/` layout, editable installs
 - `02-data-and-drift-simulation.md` — faking realistic drift; covariate vs concept drift
 - `03-training-and-mlflow.md` — the quality gate, MLflow registry, aliases
-- `04-drift-detection.md` — **PSI vs KS test**, the statistics (read this before interviews)
+- `04-drift-detection.md` — **PSI vs KS test**, the statistics
 - `05-llm-diagnostic-agent.md` — the unique angle: decide/act split, prompt-as-policy, fallback
 - `06-serving-and-metrics.md` — FastAPI serving patterns + Prometheus metric types
 - `07-orchestration-and-self-healing.md` — the closed loop + Airflow DAGs
@@ -141,7 +141,7 @@ src/mlops/
 scripts/               # runnable entrypoints (train, serve-helpers, self-heal)
 monitoring/            # prometheus + grafana provisioning
 tests/                 # pytest suite
-docs/                  # architecture, runbook, and learning notes
+docs/                  # architecture, runbook, and design notes
 ```
 
 ## License

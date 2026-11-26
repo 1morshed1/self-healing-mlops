@@ -1,7 +1,7 @@
 # 01 — Scaffolding & configuration
 
 This note covers the boring-but-load-bearing decisions that make the rest of
-the project pleasant to work on. Interviewers notice these.
+the project pleasant to work on.
 
 ## Decision 1: the `src/` layout
 
@@ -27,7 +27,7 @@ This is [factor III of the 12-factor app](https://12factor.net/config). The key
 insight: *config that varies between deploys* (dev vs prod thresholds, API keys,
 hostnames) belongs in the environment, not in code.
 
-Two small robustness touches worth calling out in an interview:
+Two small robustness touches worth calling out:
 - `Settings` is **frozen** (`@dataclass(frozen=True)`) — config is read-only at
   runtime. If a test needs a different value it builds a fresh instance instead
   of mutating a global, which prevents spooky test-order-dependent bugs.

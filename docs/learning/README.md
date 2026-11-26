@@ -1,8 +1,8 @@
-# Learning notes
+# Design notes
 
 These notes are the teaching companion to the code. They're written to be read
 **in order**, and each one explains the *decisions* behind a phase of the build —
-the reasoning you'd want at hand in an interview, not just what the code does.
+the reasoning, not just what the code does.
 
 | # | Note | What you'll learn |
 |---|---|---|
@@ -17,5 +17,5 @@ the reasoning you'd want at hand in an interview, not just what the code does.
 | 08 | [Observability stack](08-observability-stack.md) | Compose, Prometheus (pull), Grafana-as-code |
 | 09 | [Testing & quality](09-testing-and-quality.md) | test isolation; testing an LLM offline |
 
-If you only read three before an interview: **00** (the story), **04** (the
+If you only read three: **00** (the story), **04** (the
 statistics), and **05** (the unique angle).
